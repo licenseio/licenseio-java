@@ -1,4 +1,4 @@
-package io.license.api;
+package io.license.onlinevalidation.api;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,6 +7,6 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ValidateLicenseByKeyRequest {
-    private String key;
+public class ValidateByTokenRequest {
+    private String token;
 }
