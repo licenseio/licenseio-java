@@ -12,4 +12,5 @@ public class LicenseException extends Exception {
     public LicenseException(String message, Throwable cause) {
         super(message, cause);
     }
+
 }
