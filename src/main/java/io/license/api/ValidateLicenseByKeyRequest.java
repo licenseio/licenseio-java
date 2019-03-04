@@ -1,0 +1,12 @@
+package io.license.api;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class ValidateLicenseByKeyRequest {
+    private String key;
+}
