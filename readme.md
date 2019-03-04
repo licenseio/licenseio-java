@@ -124,3 +124,18 @@ License id: 70b3cc42-9289-46c2-9aa8-73fe0f08c1bb
 Licensed to: Demo User
 License status: ACTIVE
 ```
+
+## Build
+
+The Java SDK uses Gradle for building and contains a gradle wrapper so the following command builds the project
+
+```sh
+$ ./gradlew build
+```
+
+You can run tests with the `check` target
+
+```sh
+$ ./gradlew check
+
+```
