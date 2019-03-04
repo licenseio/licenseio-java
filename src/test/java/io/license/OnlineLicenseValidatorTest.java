@@ -1,5 +1,6 @@
 package io.license;
 
+import io.license.exceptions.InvalidLicenseException;
 import io.license.model.License;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -91,5 +92,16 @@ public class OnlineLicenseValidatorTest {
         assertNotNull(license.getVersion().getMin().getName());
 
         System.out.printf("validated license: %s\n", license);
+    }
+
+    @Test(expected = InvalidLicenseException.class)
+    public void validateByKey_invalidLicense() throws Exception {
+
+        OnlineLicenseValidator validator = OnlineLicenseValidator.builder()
+                .baseUrl("http://localhost:8000")
+                .appId("3ccf0f1b-dd3f-48d9-911a-ddf479078c37")
+                .build();
+
+        License license = validator.validateByKey("invalid-key");
     }
 }

@@ -7,6 +7,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import io.license.api.ValidateLicenseByKeyRequest;
+import io.license.exceptions.InvalidLicenseException;
+import io.license.model.ApiError;
 import io.license.model.License;
 import lombok.Builder;
 import lombok.Data;
@@ -40,7 +42,7 @@ public class OnlineLicenseValidator {
      * @param key
      * @return
      */
-    License validateByKey(String key) {
+    License validateByKey(String key) throws InvalidLicenseException {
 
         ValidateLicenseByKeyRequest request = new ValidateLicenseByKeyRequest(key);
 
@@ -63,7 +65,8 @@ public class OnlineLicenseValidator {
 
             CloseableHttpResponse response = httpClient.execute(post);
 
-            if (response.getStatusLine().getStatusCode() == 200) {
+            int statusCode = response.getStatusLine().getStatusCode();
+            if (statusCode == 200) {
                 // success
 
                 String responseJson = EntityUtils.toString(response.getEntity());
@@ -71,10 +74,16 @@ public class OnlineLicenseValidator {
 
                 return license;
 
+            } else if (statusCode >= 400 && statusCode < 500) {
+                String responseJson = EntityUtils.toString(response.getEntity());
+                ApiError error = objectMapper.readValue(responseJson, ApiError.class);
+
+                throw new InvalidLicenseException(error.getMessage());
             } else {
+
+
                 // failed
                 // TODO handle this, probably throw an exception
-                throw new RuntimeException("Request failed");
             }
 
         } catch (JsonProcessingException e) {
