@@ -1,10 +1,8 @@
 package io.license.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import sun.misc.Version;
 
 import java.time.Instant;
 import java.util.List;
