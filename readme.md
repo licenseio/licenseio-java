@@ -76,14 +76,17 @@ License status: ACTIVE
 When your app needs to be able to validate licenses without a network connection
 you can use the offline validation.
 
-For this to work you need to specificy one or more public certificates to verify
-the signed license token. (You can find these certificates in the dashboard)
+For this to work you need to specify one or more public certificates to verify
+the signed license token. You can download these certificates in the dashboard. 
+
+The certificate name as it is presented in the dashboard should be passed as the `name` when configuring a certificate, 
+otherwise the validator will not be able to match a signed token to your certificate.
 
 ```java
 OfflineLicenseValidator validator = OfflineLicenseValidator.builder()
     .appId("fd0bfc5e-03e1-4dae-806a-97c25c295482")
     .certificate("certificatename", 
-        "-----BEGIN CERTIFICATE-----"
+        "-----BEGIN CERTIFICATE-----\n"
         + "MIICrzCCAZegAwIBAgIJAJ4rNZtxGNA0MA0GCSqGSIb3DQEBCwUAMBcxFTATBgNV"
         + "BAMTDFF1YW50dXMgQlZCQTAeFw0xODAzMDUxNjAyMjlaFw0zODAyMjgxNjAyMjla"
         + "MBcxFTATBgNVBAMTDFF1YW50dXMgQlZCQTCCASIwDQYJKoZIhvcNAQEBBQADggEP"
@@ -98,7 +101,7 @@ OfflineLicenseValidator validator = OfflineLicenseValidator.builder()
         + "8rGuhydAApMzB9jgV1+iFw4KeXIwo++dVLYyMZQj6lkqKEnZy0kDj9uWIpXHRHzF"
         + "Hp4qwLXzJBdpJZpGE8umIXmcg2t0XlB7OlDjayTdwi01u+h4Qf35zWjY47+n+n2u"
         + "itAkhdtyiYu4fgICI9Hi8Zywo5iBTUlk0zMATYv6tiT7Rn4SGucqN5CeNspt3jE5"
-        + "rtqqWG0WMKy/1lAYC6yGVcCS2A=="
+        + "rtqqWG0WMKy/1lAYC6yGVcCS2A==\n"
         + "-----END CERTIFICATE-----")
     .build();
 
@@ -127,7 +130,7 @@ License status: ACTIVE
 
 ## Build
 
-The Java SDK uses Gradle for building and contains a gradle wrapper so the following command builds the project
+The License.io Java SDK uses Gradle for building and contains a gradle wrapper so the following command builds the project
 
 ```sh
 $ ./gradlew build
